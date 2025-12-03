@@ -1,3 +1,9 @@
+/**
+ * Validadores para el modelo de Usuario
+ * Utiliza express-validator para validación de datos
+ * @module validators/usuariosValidators
+ */
+
 const Joi = require('joi');
 
 const crearUsuario = Joi.object({
@@ -55,4 +61,18 @@ const actualizarUsuario = Joi.object({
   estado: Joi.boolean().optional()
 });
 
-module.exports = { crearUsuario, actualizarUsuario };
+const validarActualizacionParcial = [
+  body('nombre')
+    .optional()
+    .trim()
+    .isLength({ min: 3 })
+    .withMessage('El nombre debe tener al menos 3 caracteres'),
+  body('correo')
+    .optional()
+    .isEmail()
+    .withMessage('Debe proporcionar un correo válido')
+    .normalizeEmail(),
+  validationErrorHandler
+];
+
+module.exports = { crearUsuario, actualizarUsuario, validarActualizacionParcial };
