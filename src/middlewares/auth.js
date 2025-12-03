@@ -1,3 +1,8 @@
+/**
+ * Middleware de autenticación JWT
+ * Verifica el token en el header Authorization
+ * @module middlewares/auth
+ */
 const jwt = require('jsonwebtoken');
 const ApiError = require('../errors/ApiError');
 require('dotenv').config();
